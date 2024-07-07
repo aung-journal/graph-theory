@@ -201,14 +201,14 @@ undirected_edges_3 = [
 ]
 
 bf_edges_2 = [
-    (0, 1, 4),   # From node 0 to node 1 with weight 4
-    (0, 2, 5),   # From node 0 to node 2 with weight 5
-    (1, 2, -3),  # From node 1 to node 2 with weight -3
-    (1, 3, 6),   # From node 1 to node 3 with weight 6
-    (2, 3, 2),   # From node 2 to node 3 with weight 2
-    (3, 1, 1),   # From node 3 to node 1 with weight 1
-    (3, 4, -4),  # From node 3 to node 4 with weight -4
-    (4, 2, -2)   # From node 4 to node 2 with weight -2
+    (0, 1, {'weight': 4}),   # From node 0 to node 1 with weight 4
+    (0, 2, {'weight': 5}),   # From node 0 to node 2 with weight 5
+    (1, 2, {'weight': -3}),  # From node 1 to node 2 with weight -3
+    (1, 3, {'weight': 6}),   # From node 1 to node 3 with weight 6
+    (2, 3, {'weight': 2}),   # From node 2 to node 3 with weight 2
+    (3, 1, {'weight': 1}),   # From node 3 to node 1 with weight 1
+    (3, 4, {'weight': -4}),  # From node 3 to node 4 with weight -4
+    (4, 2, {'weight': -2})   # From node 4 to node 2 with weight -2
 ]
 
 bf_edges_3 = [
@@ -273,7 +273,7 @@ def visualize_graph(G: Union[nx.Graph, nx.DiGraph]):
         nx.draw(G, pos, with_labels=True, node_size=700, node_color="skyblue", font_size=12, font_weight="bold", edge_color="gray", linewidths=1, font_color="black")
 
         # Display the plot
-        plt.title("Graph Visualization")
+        plt.title("Undirected Graph Visualization")
         plt.show()
     else:
         # Draw the graph
@@ -285,7 +285,7 @@ def visualize_graph(G: Union[nx.Graph, nx.DiGraph]):
 
         nx.draw(G, pos, with_labels=True, node_size=700, node_color="skyblue", font_size=15, font_weight="bold", edge_color="gray")
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
-        plt.title("Complex Rooted Weighted Tree Visualization", fontsize=20)
+        plt.title("Directed Graph Visualization", fontsize=20)
         plt.show()
 
 def visualize(graph: dict[int:list]):

@@ -2,6 +2,8 @@ from setup import undirected_edges, undirected_edges_3, nx, plt
 from queue import PriorityQueue, Queue
 from indexed_priority_queue import IndexedPriorityQueue
 #from d_heap import MinHeap
+from Daryheap import DaryHeap
+import time
 
 def visualize_undirected_weight_graph(G: nx.Graph):
     # Draw the graph
@@ -65,20 +67,50 @@ def eager_dijkstra(g: nx.Graph, s):
                     ipq.update(neighbour, newDist)
     return (dist, prev)
 
-# def d_heap_dijkstra(g: nx.Graph, s):
-#     n = g.number_of_nodes()
-#     edgeCount = g.number_of_edges()
-#     degree = edgeCount / n
-#     ipq = MinHeap(degree)
-#     ipq.add_element((s, 0))
-#     vis = [False] * (n + 1)
-#     prev = [None] * (n + 1)
-#     dist = [float('inf') for _ in range(n + 1)]
-#     dist[s] = 0
+def d_heap_dijkstra(g: nx.Graph, s, e):
+    n = g.number_of_nodes()
+    edgeCount = g.number_of_edges()
+    degree = edgeCount / n
+    ipq = DaryHeap(degree)
+    ipq.push(s, 0)
+    vis = [False] * (n + 1)
+    prev = [None] * (n + 1)
+    dist = [float('inf') for _ in range(n + 1)]
+    dist[s] = 0
     
-#     while ipq.length != 0:
-#         index, minVal = ipq.search_value()
+    while ipq.__len__() != 0:
+        index, minVal = ipq.pop()
+        vis[index] = True
+        if dist[index] < minVal: continue
+        for neighbour in g.neighbors(index):
+            if vis[neighbour]:  continue
+            edgeWeight = g[index][neighbour]['weight']
+            newDist = dist[index] + edgeWeight
+            if newDist < dist[neighbour]:
+                prev[neighbour] = index
+                dist[neighbour] = newDist
+                if not ipq.__contains__(neighbour):
+                    ipq.push(neighbour, newDist)
+                else:
+                    ipq.decrease_key(neighbour, newDist)
+        if index == e: return (dist[e], prev)
+    return (float('inf'), [])
 
+def reconstructPath(g: nx.Graph, s, e):
+    n = g.number_of_nodes()
+    if e < 0 or e > n: raise Exception('Invalid node index')
+    if s < 0 or s > n: raise Exception('Invalid node index')
+    path = []
+    dist, prev = d_heap_dijkstra(g, s, e)
+    if dist == float('inf'): return path
+
+    at = e
+    while at is not None:
+        path.append(at)
+        at = prev[at]
+
+    path.reverse()
+    return path
 
 #e is the index of end node (0 <= e < n)
 def findShortestPath(g, s, e):
@@ -96,11 +128,18 @@ def findShortestPath(g, s, e):
     path.reverse()
     return path
 
-quit = False
+def main():
+    quit = False
 
-while not quit:
-    start = int(input("Enter the start number you want to use dijkstra for (1 - {}) : ".format(len(undirected_edges_3))))
-    end = int(input("Enter the end number you want to use dijkstra for (1 - {}) : ".format(len(undirected_edges_3))))
+    while not quit:
+        start = int(input("Enter the start number you want to use dijkstra for (1 - {}) : ".format(g.number_of_nodes())))
+        end = int(input("Enter the end number you want to use dijkstra for (1 - {}) : ".format(g.number_of_nodes())))
 
-    print(f'The shortest path from {start} to {end} is ' + '[' + ', '.join([str(i) for i in findShortestPath(g, start, end)]) + ']')
-    quit = input('Do you want to quit(Y/N): ').lower() == 'y'
+        start_time = time.time()
+        print(f'The shortest path from {start} to {end} is ' + '[' + ', '.join([str(i) for i in reconstructPath(g, start, end)]) + ']')
+        print("The time taken is --- {} seconds ---".format(time.time() - start_time))
+        quit = input('Do you want to quit(Y/N): ').lower() == 'y'
+
+if __name__ == '__main__':
+    #This code won't run if this file is imported
+    main()
