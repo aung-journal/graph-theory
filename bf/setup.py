@@ -200,6 +200,17 @@ undirected_edges_3 = [
     (6, 7, {'weight': 3})
 ]
 
+bf_edges_1 = [
+    (0, 1, 4),
+    (0, 2, 5),
+    (1, 2, -3),
+    (1, 3, 6),
+    (2, 3, 2),
+    (3, 1, 1),
+    (3, 4, -4),
+    (4, 2, -2)
+]
+
 bf_edges_2 = [
     (0, 1, {'weight': 4}),   # From node 0 to node 1 with weight 4
     (0, 2, {'weight': 5}),   # From node 0 to node 2 with weight 5
