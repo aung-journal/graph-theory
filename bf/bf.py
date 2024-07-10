@@ -1,8 +1,36 @@
 #This is python implementation of Bellman-Ford(BF) algorithm
 from setup import nx, bf_edges_1
 
+edges_1 = [
+    (0, 1, 2),
+    (1, 2, -1),
+    (2, 3, 3),
+    (3, 4, 2),
+    (4, 5, 1),
+    (5, 6, 2),
+    (6, 7, -3),
+    (7, 8, 2),
+    (8, 9, 1),
+    (9, 10, 4),
+    (10, 11, -2),
+    (11, 12, 1),
+    (12, 13, 3),
+    (13, 14, 2),
+    (14, 15, 1),
+    (15, 16, -1),
+    (16, 17, 2),
+    (17, 18, 1),
+    (18, 19, -2),
+    (0, 2, 4),
+    (2, 4, 2),
+    (1, 3, 7),
+    (3, 1, -2),
+    (10, 0, -4),  # Ensures some connectivity in the graph
+    (8, 15, 5)
+]
+
 g = nx.DiGraph()
-for u, v, w in bf_edges_1:
+for u, v, w in edges_1:
     g.add_edge(u, v, weight=w)
 
 def bellmanFord(g: nx.DiGraph, s: int):
@@ -42,7 +70,7 @@ def main():
     dist = bellmanFord(g, start)
 
     for node in g.nodes:
-        print(f"The cost to get from node {start} from {node} is {dist[node]:.2f}.")
+        print(f"The cost to get from node {start} to {node} is {dist[node]:.2f}.")
 
 if __name__ == '__main__':
     #This code won't run if this file is imported

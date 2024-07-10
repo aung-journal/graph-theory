@@ -1,5 +1,6 @@
 from setup import create, visualize, complex_graph
 from queue import Queue
+import time
 
 G = create(complex_graph)
 #visualize(complex_graph)
@@ -49,4 +50,18 @@ def bfs(s, e):
     # Return reconstructed path from s -> e
     return reconstructPath(s, e, prev)
 
-print(bfs(0, 18))
+def main():
+    quit = False
+
+    while not quit:
+        start = int(input("Enter the start number you want to use BFS for (1 - {}) : ".format(G.number_of_nodes())))
+        end = int(input("Enter the end number you want to use BFS for (1 - {}) : ".format(G.number_of_nodes())))
+
+        start_time = time.time()
+        print(f'The shortest path from {start} to {end} is ' + '[' + ', '.join([str(i) for i in bfs(start, end)]) + ']')
+        print("The time taken is --- {} seconds ---".format(time.time() - start_time))
+        quit = input('Do you want to quit(Y/N): ').lower() == 'y'
+
+if __name__ == '__main__':
+    #This code won't run if this file is imported
+    main()

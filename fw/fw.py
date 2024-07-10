@@ -53,6 +53,7 @@ def setup(graph: nx.Graph):
     for i in range(n):
         for j in range(n):
             if i == j:
+                #This is the base case
                 dp[i][j] = 0
             elif graph.has_edge(i, j):
                 dp[i][j] = graph[i][j]['weight']
@@ -61,6 +62,8 @@ def setup(graph: nx.Graph):
                 dp[i][j] = float('inf')
                 next_matrix[i][j] = None
 
+#This is used to detect negative cycles so that it will eliminate the nodes that
+#are effected in that cycle.
 def propagateNegativeCycles():
     for k in range(n):
         for i in range(n):
