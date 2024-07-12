@@ -26,4 +26,8 @@ def dagShortestPath(graph: nx.DiGraph, start: int):
     return dist
 
 # Test the function with the start node 1
-print(dagShortestPath(G, 1))
+def main():
+    print(dagShortestPath(G, 1))
+
+if __name__ == '__main__':
+    main()

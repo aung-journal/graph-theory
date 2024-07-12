@@ -1,4 +1,4 @@
-from setup import complex_graph, create
+from setup import complex_graph, create, visualize
 
 # Create the graph
 g = create(complex_graph)
