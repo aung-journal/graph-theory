@@ -1,4 +1,4 @@
-from setup import undirected_edges, undirected_edges_3, nx, plt
+from setup import undirected_edges, undirected_edges_3, undirected_edges_2, nx, plt
 from queue import PriorityQueue, Queue
 from indexed_priority_queue import IndexedPriorityQueue
 #from d_heap import MinHeap
@@ -14,8 +14,26 @@ def visualize_undirected_weight_graph(G: nx.Graph):
 
     plt.show()
 
+import random
+
+num_nodes = 10000
+num_edges = 50000  # Adjust this number based on how dense you want the graph
+edges = set()
+
+while len(edges) < num_edges:
+    # Generate random nodes
+    u = random.randint(1, num_nodes)
+    v = random.randint(1, num_nodes)
+    if u != v:  # Avoid self-loops
+        weight = random.randint(1, 10)  # Random weight between 1 and 10
+        # Store as a tuple with a dictionary in a different format
+        edges.add((u, v, weight))
+
+# Convert the set to a list of edges with weights as dictionaries
+undirected_edges_1000 = [(u, v, {'weight': w}) for u, v, w in edges]
+
 g = nx.Graph()
-g.add_edges_from(undirected_edges_3)
+g.add_edges_from(undirected_edges_2)
 
 #visualize_undirected_weight_graph(g)
 
@@ -26,7 +44,7 @@ def dijkstra(g: nx.Graph, s):
     prev = [None] * (n + 1)
     dist = [float('inf') for _ in range(n + 1)]
     dist[s] = 0
-    pq = Queue() #Queue and Priority Queue are interchangeable here
+    pq = PriorityQueue() #Queue and "Priority Queue" are interchangeable here
     pq.put((s, 0))
     while pq.qsize() != 0:
         index, minVal = pq.get()
@@ -114,7 +132,7 @@ def reconstructPath(g: nx.Graph, s, e):
 
 #e is the index of end node (0 <= e < n)
 def findShortestPath(g, s, e):
-    dist, prev = eager_dijkstra(g, s)
+    dist, prev = dijkstra(g, s)
     path = []
     #reachable
     if dist[e] == float('inf'):

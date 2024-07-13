@@ -58,8 +58,12 @@ def optimized_topsort(graph: Union[nx.Graph, nx.DiGraph]):
             
     return ordering
 
-print(topsort(RT))
-print(optimized_topsort(RT))
+def main():
+    print(topsort(RT))
+    print(optimized_topsort(RT))
 
-end_time = time.time()
-print("--- {} seconds ---".format(end_time - start_time))
+    end_time = time.time()
+    print("--- {} seconds ---".format(end_time - start_time))
+
+if __name__ == '__main__':
+    main()

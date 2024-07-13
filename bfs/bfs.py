@@ -3,7 +3,7 @@ from queue import Queue
 import time
 
 G = create(complex_graph)
-#visualize(complex_graph)
+visualize(complex_graph)
 n = G.number_of_nodes()
 
 def solve(s):
@@ -58,6 +58,7 @@ def main():
         end = int(input("Enter the end number you want to use BFS for (1 - {}) : ".format(G.number_of_nodes())))
 
         start_time = time.time()
+        print(f'The prev array for {start} is ' + '[' + ', '.join([str(i) for i in solve(start)]) + ']')
         print(f'The shortest path from {start} to {end} is ' + '[' + ', '.join([str(i) for i in bfs(start, end)]) + ']')
         print("The time taken is --- {} seconds ---".format(time.time() - start_time))
         quit = input('Do you want to quit(Y/N): ').lower() == 'y'

@@ -19,10 +19,7 @@ def dagShortestPath(graph: nx.DiGraph, start: int):
             for neighbor in graph.neighbors(nodeIndex):
                 edgeWeight = graph[nodeIndex][neighbor]['weight']
                 newDist = dist[nodeIndex] + edgeWeight
-                if newDist < dist[neighbor]:
-                    dist[neighbor] = newDist
-                else:
-                    dist[neighbor] = min(dist[neighbor], newDist)
+                dist[neighbor] = min(dist[neighbor], newDist)
 
     return dist
 
