@@ -111,6 +111,18 @@ dag_edges_1 = [
     (6, 5, 9)
 ]
 
+dag_edges_2 = [
+    (0, 1, 5),
+    (0, 2, 3),
+    (1, 3, 6),
+    (1, 2, 2),
+    (2, 4, 4),
+    (2, 5, 2),
+    (3, 4, 1),
+    (3, 5, 2),
+    (4, 5, 3)
+]
+
 
 def create(graph: dict[int:list]):
     # Create a graph object

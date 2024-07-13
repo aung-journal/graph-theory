@@ -1,9 +1,10 @@
-from setup import nx, create_dag, visualize_graph, dag_edges_1
+from setup import nx, create_dag, visualize_graph, dag_edges_2
 from topsort import topsort
+import json
 
 # Create and visualize the DAG
-G = create_dag(dag_edges_1)
-visualize_graph(G)
+G = create_dag(dag_edges_2)
+#visualize_graph(G)
 
 def dagShortestPath(graph: nx.DiGraph, start: int):
     N = graph.number_of_nodes()
@@ -28,6 +29,8 @@ def dagShortestPath(graph: nx.DiGraph, start: int):
 # Test the function with the start node 1
 def main():
     print(dagShortestPath(G, 1))
+    with open('ans.txt', 'a') as f:
+        json.dump(dagShortestPath(G, 1), f)
 
 if __name__ == '__main__':
     main()
